@@ -1,0 +1,151 @@
+<view class='cu-custom' style="height:{{CustomBar}}px;">
+</view>
+<view class="bg-white custom">
+    <view class="flex justify-between">
+      <view class='padding-sm margin-xs radius'>{{weather.city.admin_area}}-{{weather.city.parent_city}}-{{weather.city.location}}</view>
+      <view class='padding-sm margin-xs radius'>最后更新时间:{{weather.update}}</view>
+    </view>
+    <view class="flex justify-center">
+      <view class='text-xsl radius'>{{weather.now.tmp}}℃</view>
+    </view>
+    <view class="flex justify-center">  
+      <image class='png'  src="{{contMap[weather.now.cond_code]}}" style='width: 60rpx;height: 60rpx;margin-top: 12rpx;'></image>
+      <view class='padding-sm text-lg radius'>{{weather.now.cond_txt}}</view>
+    </view>
+    <view class="cu-list grid col-4 no-border">
+      <view class="cu-item">
+        <image src='/resources/sunrise.svg'></image>
+        <text>日出时间</text>
+        <text>{{weather.daily[0].sr}}</text>
+      </view>
+      <view class="cu-item">
+        <image src='/resources/sunset.svg'></image>
+        <text>日落时间</text>
+        <text>{{weather.daily[0].ss}}</text>
+      </view>
+      <view class="cu-item">
+        <image src='/resources/pres.svg'></image>
+        <text>大气压强</text>
+        <text>{{weather.now.pres}}hpa</text>
+      </view>
+      <view class="cu-item">
+        <image src='/resources/windspeed.svg'></image>
+        <text>风向风速</text>
+        <text>{{weather.now.wind_dir}}{{weather.now.wind_sc}}级</text>
+      </view>
+    </view>
+    <view class="cu-list grid col-5 no-border">
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>空气质量</text>
+        <text class='{{qltyMap[weather.aqi.qlty]}} round' style='color: #fff'>{{weather.aqi.qlty}}</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>AQI</text>
+        <text>{{weather.aqi.aqi}}</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>PM2.5</text>
+        <text>{{weather.aqi.pm25}}</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>PM10</text>
+        <text>{{weather.aqi.pm10}}</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>湿度</text>
+        <text>{{weather.now.hum}}%</text>
+      </view>
+    </view>
+    <view class="flex solid-bottom justify-start">
+      <view class='padding-xs text-df text-bold'>七天预报</view>
+    </view>
+    <view class="cu-list grid col-4 no-border">
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>日期</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>天气</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>最低气温</text>
+      </view>
+      <view class="cu-item">
+        <text style='font-size:30rpx;font-weight:bold;'>最高气温</text>
+      </view>
+    </view>
+    <view class="cu-list grid col-4 no-border" wx:for="{{weather.daily}}" style='margin:0;padding-top:0;'>
+      <view class="cu-item">
+        <text>{{item.date}}</text>
+      </view>
+      <view class="cu-item" style='display: inline;'>
+        
+        <image class='png'  src="{{contMap[item.cond_code_d]}}" style='width: 45rpx;height: 45rpx;display: inline-block;margin:0;'></image><view style='display: inline-block;'>~</view><image class='png'  src="{{contMap[item.cond_code_n]}}" style='width: 45rpx;height: 45rpx;display: inline-block;margin:0;'></image>
+        <text>{{item.cond_txt_d}}~{{item.cond_txt_n}}</text>
+      </view>
+      <view class="cu-item">
+        <text>{{item.tmp_min}}℃</text>
+      </view>
+      <view class="cu-item">
+        <text>{{item.tmp_max}}℃</text>
+      </view>
+    </view>
+    <ad unit-id="adunit-b9e32bb2bd33b3f8"></ad>
+    <view class="flex solid-bottom justify-start">
+      <view class='padding-xs text-df text-bold'>生活指数</view>
+    </view>
+    <view class="cu-list grid col-4">
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[7].txt}}">
+        <image src='/resources/airCondition.svg'></image>
+        <text>空气指数</text>
+        <text>{{weather.suggestion[7].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[0].txt}}">
+        <image src='/resources/comf.svg'></image>
+        <text>舒适指数</text>
+        <text>{{weather.suggestion[0].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[6].txt}}">
+        <image src='/resources/cw.svg'></image>
+        <text>洗车指数</text>
+        <text>{{weather.suggestion[6].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[1].txt}}">
+        <image src='/resources/drsg.svg'></image>
+        <text>穿衣指数</text>
+        <text>{{weather.suggestion[1].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[2].txt}}">
+        <image src='/resources/flu.svg'></image>
+        <text>感冒指数</text>
+        <text>{{weather.suggestion[2].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[3].txt}}">
+        <image src='/resources/sport.svg'></image>
+        <text>运动指数</text>
+        <text>{{weather.suggestion[3].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[4].txt}}">
+        <image src='/resources/trav.svg'></image>
+        <text>旅行指数</text>
+        <text>{{weather.suggestion[4].brf}}</text>
+      </view>
+      <view class="cu-item" bindtap="showModal" data-target="Modal" data-content="{{weather.suggestion[5].txt}}">
+        <image src='/resources/uv.svg'></image>
+        <text>UV指数</text>
+        <text>{{weather.suggestion[5].brf}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="cu-modal {{modalName=='Modal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class='content'>指数详情</view>
+      <view class='action' bindtap='hideModal'>
+        <text class='icon-close text-red'></text>
+      </view>
+    </view>
+    <view class='padding-xl'>
+      {{content}}
+    </view>
+  </view>
+</view>
